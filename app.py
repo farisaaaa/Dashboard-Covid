@@ -36,14 +36,12 @@ elif menu == "Halaman Data":
     judul()
     year = select_year()
     df = load_data()
-    df_filtered = filter_data(df, year, locations)  # Filter data based on year and locations
-    show_data(df_filtered)  # Ensure the filtered data is displayed
+    df_filtered = filter_data(df, year, locations)  
 
 def filter_data(df, year, locations=None):
-    df = df[df['Year'] == year]  # Filter by year
+    df = df[df['Year'] == year]  
     if locations:  
         if isinstance(locations, list):  
-            df = df[df['Location'].isin(locations)]  # Use .isin() for multi-location filtering
+            df = df[df['Location'].isin(locations)] 
         else:
-            raise ValueError("Locations must be a list.")  # Removed unnecessary raise statement
-    return df
+            raise ValueError("Locations must be a list.")  
