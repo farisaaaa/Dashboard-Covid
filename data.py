@@ -29,11 +29,11 @@ def select_location():
     )
      
 def select_year():
-    return st.sidebar.selectbox(
+    tahun = st.sidebar.selectbox(
         "Pilih Tahun 📅",
-        options=[None, 2020, 2021, 2022],
-        format_func=lambda x: "Semua Tahun" if x is None else x
+        options=["Semua Tahun", 2020, 2021, 2022]
     )
+    return None if tahun == "Semua Tahun" else tahun
 
 def show_data(df=None):
     if df is None:

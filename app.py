@@ -8,7 +8,7 @@ def judul():
 st.sidebar.title("Navigasi")
 menu = st.sidebar.radio("Pilih Halaman", ["Home", "Halaman Data"])
 
-# Update multi-location selection in the sidebar (no default location)
+
 locations = st.sidebar.multiselect(
     "Pilih Provinsi 📍", 
     ["Aceh", "Bali", "Banten", "Bengkulu", "DKI Jakarta", 
@@ -36,12 +36,14 @@ elif menu == "Halaman Data":
     judul()
     year = select_year()
     df = load_data()
-    df_filtered = filter_data(df, year, locations)  
+    df_filtered = filter_data(df, year, locations)  # Filter data based on year and locations
+    show_data(df_filtered)  # Ensure the filtered data is displayed
 
 def filter_data(df, year, locations=None):
-    df = df[df['Year'] == year] 
+    df = df[df['Year'] == year]  # Filter by year
     if locations:  
         if isinstance(locations, list):  
-            df = df[df['Location'].isin(locations)] 
-            raise ValueError("Locations must be a list.")
+            df = df[df['Location'].isin(locations)]  # Use .isin() for multi-location filtering
+        else:
+            raise ValueError("Locations must be a list.")  # Removed unnecessary raise statement
     return df
