@@ -36,12 +36,16 @@ elif menu == "Halaman Data":
     judul()
     year = select_year()
     df = load_data()
-    df_filtered = filter_data(df, year, locations)  
+    df_filtered = filter_data(df, year, locations)  # Filter data based on year and locations
+    if not df_filtered.empty:  # Check if filtered data is not empty
+        show_data(df_filtered)  # Display the filtered data
+    else:
+        st.warning("⚠️ Tidak ada data yang sesuai dengan filter yang dipilih.")
 
 def filter_data(df, year, locations=None):
-    df = df[df['Year'] == year]  
+    if year:
+        df = df[df['Date'].astype(str).str.contains(str(year))]  # Corrected: Use 'Date' for year filtering
     if locations:  
         if isinstance(locations, list):  
-            df = df[df['Location'].isin(locations)] 
-        else:
-            raise ValueError("Locations must be a list.")  
+            df = df[df['Location'].isin(locations)]  # Use .isin() for multi-location filtering
+    return df
